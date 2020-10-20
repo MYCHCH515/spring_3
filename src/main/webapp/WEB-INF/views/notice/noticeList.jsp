@@ -6,11 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="../template/bootStrap.jsp"></c:import>
+<c:import url="../template/bootstrap.jsp"></c:import>
 <style type="text/css">
-	table {
-	margin-top: 10px;
-}
 	.c1 {
 		cursor: pointer;
 	}

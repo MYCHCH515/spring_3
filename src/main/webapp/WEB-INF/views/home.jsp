@@ -11,7 +11,7 @@
 <body>
 <c:import url="./template/header.jsp"></c:import>
 <div class="container">
-  <h3>Right Aligned Navbar</h3>
+  <h3>fix_noticeList</h3>
   <p>The .navbar-right class is used to right-align navigation bar buttons.</p>
 </div>
 	<img alt="main_img" src="./resources/images/i2.jpg">
