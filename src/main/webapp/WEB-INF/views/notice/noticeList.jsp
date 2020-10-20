@@ -8,16 +8,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../template/bootstrap.jsp"></c:import>
+
+<!--  
+<style type="text/css">
+	.c1{
+		cursor: pointer;
+	}
+</style>
+-->
+
 </head>
 <body>
 
 <c:import url="../template/header.jsp"></c:import>
   
 <div class="container">
-  <h3>Notice List Page</h3>
+ <h3>Notice List Page</h3>
  <div class="row">
   <div class="col-sm-8">
-  <form action="./noticeList">
+  <form action="./noticeList" id="searchForm">
+  <input type="hidden" name="curPage" id="curPage">
        <div class="input-group">
        		<select class="input-group-sm" id="sel1" name="kind">
        			<option value="tt">Title</option>
@@ -71,7 +81,28 @@
  </div>
 
  <a href="./noticeWrite" class="btn btn-danger">Write</a>
+ 	
+ <!--  
+ <script type="text/javascript">
+ 	var kind = '${pager.kind}';
+ 	var search = '${pager.search}';
+ 	if(kind ==''){
+ 		kind='tt';
+ 	}
+ 	
+ 	$("#kind").val(kind);
+ 	$("#search").val(search);
  
+ 
+ 	$(".c1").click(function(){
+ 		var c = $(this).attr("title");
+ 		$("#curPage").val(c);
+ 		$("#kind").val(kind);
+ 		$("#searchForm").val(search);
+ 		$("#searchForm").submit();
+ 	});
+ </script>
+ -->
  
 </div>
 </body>
