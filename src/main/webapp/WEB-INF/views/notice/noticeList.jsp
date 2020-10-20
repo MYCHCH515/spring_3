@@ -26,7 +26,7 @@
  <h3>Notice List Page</h3>
  <div class="row">
   <div class="col-sm-8">
-  <form action="./noticeList" id="searchForm">
+  <form action="./noticeList">
   <input type="hidden" name="curPage" id="curPage">
        <div class="input-group">
        		<select class="input-group-sm" id="sel1" name="kind">
@@ -81,28 +81,6 @@
  </div>
 
  <a href="./noticeWrite" class="btn btn-danger">Write</a>
- 	
- <!--  
- <script type="text/javascript">
- 	var kind = '${pager.kind}';
- 	var search = '${pager.search}';
- 	if(kind ==''){
- 		kind='tt';
- 	}
- 	
- 	$("#kind").val(kind);
- 	$("#search").val(search);
- 
- 
- 	$(".c1").click(function(){
- 		var c = $(this).attr("title");
- 		$("#curPage").val(c);
- 		$("#kind").val(kind);
- 		$("#searchForm").val(search);
- 		$("#searchForm").submit();
- 	});
- </script>
- -->
  
 </div>
 </body>
