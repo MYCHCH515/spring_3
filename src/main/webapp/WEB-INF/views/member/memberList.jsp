@@ -9,6 +9,12 @@
 <title>Insert title here</title>
 
 <c:import url="../template/bootstrap.jsp"></c:import>
+<style type="text/css">
+	.c1 {
+		cursor: pointer;
+	}
+</style>
+
 </head>
 <body>
 
@@ -17,7 +23,8 @@
   <h3>Member List Page</h3>
   <div class="row">
   <div class="col-sm-8">
-  <form action="./memberList">
+  <form action="./memberList" id="searchForm">
+  <input type="hidden" name="curPage" id="curPage">
        <div class="input-group">
        		<select class="input-group-sm" id="sel1" name="kind">
        			<option value="id">Id</option>
@@ -25,7 +32,7 @@
        			<option value="eamil">Email</option>
        		</select>
        		
-	        <input id="msg" type="text" class="form-control" name="search" placeholder="Additional Info">
+	        <input id="search" type="text" class="form-control" name="search" placeholder="Additional Info">
 	        <div class="input-group-btn">
 	            <button class="btn btn-default" type="submit">
 	            <i class="glyphicon glyphicon-search"></i>
@@ -50,21 +57,41 @@
  
  <div>
  	<c:if test="${pager.beforeCheck}">
- 	<a href="./memberList?curPage=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">[이전]</a>
- 	</c:if>
- 	
-	<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-		<a href="./memberList?curPage=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a>
-	</c:forEach> 
-	
-	<c:if test="${pager.nextCheck}"> <!--true면 현재블럭이 마지막블럭이 아님 -->
-	<a href="./memberList?curPage=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}">[다음]</a>
-	</c:if>
+  		<span class="c1" title="${pager.startNum-1}" >[이전]</span>
+  	</c:if>
+  
+  	<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+  		<span class="c1" title="${i}">${i}</span>
+  	</c:forEach>
+  	
+  	<c:if test="${pager.nextCheck}">
+  		<span class="c1" title="${pager.lastNum+1}">[다음]</span>
+  	</c:if>
  </div>
 	
 	
  <a href="./memberJoin" class="btn btn-danger">Join</a>
  
 </div>
+<script type="text/javascript">
+	var kind = '${pager.kind}';
+	var search = '${pager.search}';
+	if(kind == ''){
+		kind='id';
+	}
+	$("#kind").val(kind);
+	$("#search").val(search);
+	
+	$(".c1").click(function() {
+		var c = $(this).attr("title");
+		$("#curPage").val(c);
+		$("#kind").val(kind);
+		$("#search").val(search);
+		$("#searchForm").submit();
+	});
+</script>
+
+
+
 </body>
 </html>
