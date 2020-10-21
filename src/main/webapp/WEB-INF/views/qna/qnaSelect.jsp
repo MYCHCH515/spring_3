@@ -20,6 +20,7 @@
  	 <h3>Contents: ${dto.contents}</h3>
  	 <input type="button" title="${dto.num}" value = "Delete" class="btn btn-warning" id="del">
  	 <input type="button" title="${dto.num}" value="Update" class="btn btn-primary" id="upd">
+ 	 <a href="./qnaReply?num=${dto.num}" class="btn btn-info">Reply</a>
 </div>
 
 <script type="text/javascript">

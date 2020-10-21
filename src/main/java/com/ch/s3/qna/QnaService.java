@@ -11,6 +11,15 @@ public class QnaService {
 	@Autowired
 	private QnaDAO qnaDAO;
 	
+	public int qnaReply(QnaDTO qnaDTO) throws Exception{
+		QnaDTO parent = qnaDAO.qnaSelect(qnaDTO.getNum());
+		int result = qnaDAO.qnaReplyUpdate(parent);
+		qnaDTO.setRef(parent.getRef()); //부모글의 ref값을 넣음
+		qnaDTO.setStep(parent.getStep()+1);
+		qnaDTO.setDepth(parent.getDepth()+1);
+		return qnaDAO.qnaReply(qnaDTO);
+	}
+	
 	public List<QnaDTO> qnaList(Pager pager) throws Exception {
 		
 		pager.makeRow();

@@ -18,6 +18,25 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	@RequestMapping(value="qnaReply", method = RequestMethod.POST)
+	public ModelAndView qnaReply(QnaDTO qnaDTO) throws Exception{
+		int result = qnaService.qnaReply(qnaDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("common/result");
+		mv.addObject("path", "./qnaList");
+		
+		String message="Reply Fail";
+		if(result>0) {
+			message = "Reply Success";
+		}
+		mv.addObject("msg", message);
+
+		return mv;
+	}
+	
+	@RequestMapping(value= "qnaReply")
+	public void qnaReply() throws Exception{}
+	
 	@RequestMapping(value="qnaList")
 	public ModelAndView qnaList(Pager pager) throws Exception{
 		
@@ -66,7 +85,6 @@ public class QnaController {
 	
 	@RequestMapping(value = "qnaDelete")
 	public ModelAndView qnaDelete(long num) throws Exception {
-		System.out.println("qna Delete Controller");
 		int result = qnaService.qnaDelete(num);
 		String message="Delete Fail";
 		if(result>0) {
@@ -84,24 +102,14 @@ public class QnaController {
 	public void qnaWrite() {}
 	
 	@RequestMapping(value="qnaWrite" , method = RequestMethod.POST)
-	public ModelAndView qnaWrite(QnaDTO qnaDTO) throws Exception {
+	public String qnaWrite(QnaDTO qnaDTO) throws Exception {
 		int result = qnaService.qnaWrite( qnaDTO);
 		System.out.println("RESULT: " + result);
-		
-		String message="Write Fail";
-		if(result>0) {
-			message = "Write Success";
-		}
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("common/result");
-		mv.addObject("msg", message);
-		mv.addObject("path", "./qnaList");
-		return mv;	
+		return "redirect:./qnaList";
 	}
 	
 	@RequestMapping(value="qnaSelect")
 	public void qnaSelect(long num, Model model) throws Exception {
-		System.out.println("qnaSelect");
 		QnaDTO qnaDTO = qnaService.qnaSelect(num);
 		model.addAttribute("dto", qnaDTO); //매개변수로 받은거는 return안해도됨
 	}
