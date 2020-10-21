@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    
+    <configuration>
+    <typeAliases>
+    	<typeAlias type="com.ch.s3.qna.QnaDTO" alias="QnaDTO"></typeAlias>
+    	<typeAlias type="com.ch.s3.notice.NoticeDTO" alias="NoticeDTO"></typeAlias>
+    	<typeAlias type="com.ch.s3.util.Pager" alias="Pager"></typeAlias>
+   		<typeAlias type="java.lang.Long" alias="Long"></typeAlias>
+    </typeAliases>
+    </configuration>

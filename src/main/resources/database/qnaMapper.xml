@@ -4,23 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
     <mapper namespace="com.ch.s3.qna.QnaDAO">
-    	<update id = "qnaUpdate" parameterType="com.ch.s3.qna.QnaDTO">
-    		update qna set title=#{title}, contents=#{contents} where num=#{num}
-    	</update>
-
-    	<delete id ="qnaDelete" parameterType="java.lang.Long">
-    		delete qna where num=#{num}
-    	</delete>
     
-    	<select id="qnaSelect" parameterType="java.lang.Long" resultType="com.ch.s3.qna.QnaDTO">
-    		select * from qna where num= #{num} 
-    	</select>
-    
-   		 <insert id="qnaWrite" parameterType="com.ch.s3.qna.QnaDTO">
-   		 	insert into qna values(qna_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, 0, 0, 0)
-   		 </insert>
-    
-		<select id ="qnaList" resultType="com.ch.s3.qna.QnaDTO" parameterType="com.ch.s3.util.Pager">
+    	<select id ="qnaList" resultType="QnaDTO" parameterType="Pager">
 			select * from 
 			(select rownum R, N.* from 
 			(select * from qna where 
@@ -29,11 +14,11 @@
 				<when test="kind =='wr'">writer</when>
 				<otherwise>contents</otherwise>
 			</choose>
-			 like '%'||#{search}||'%' order by num desc) N)
+			 like '%'||#{search}||'%' order by ref desc, step asc) N)
 			where R between #{startRow} and #{lastRow}
-		</select>    
-    
-    	<select id = "qnaCount" resultType="java.lang.Long" parameterType="com.ch.s3.util.Pager">
+		</select>  
+		
+		<select id = "qnaCount" resultType="Long" parameterType="Pager">
     		select count(num) from qna
     		where 
     		<choose>
@@ -43,5 +28,32 @@
     		</choose>
     		 like '%'||#{search}||'%'
     	</select>
+    
+    	 <insert id="qnaWrite" parameterType="QnaDTO">
+   		 	insert into qna values(qna_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, qna_seq.currval, 0, 0)
+   		 </insert>
+   		 
+   		 <insert id="qnaReply" parameterType="QnaDTO">
+   		 	insert into qna values (qna_seq.nextval
+   		 	, #{title}, #{writer}, #{contents}, sysdate, 0, #{ref}, #{step}, #{depth}) 
+   		 </insert>
+   		 
+   		 <update id="qnaReplyUpdate" parameterType="QnaDTO">
+   		 	update qna set step=step+1 where ref=#{ref} and step>#{step}
+   		 </update>
+   		 
+   		<select id="qnaSelect" parameterType="Long" resultType="QnaDTO">
+    		select * from qna where num= #{num} 
+    	</select>
+   		 
+    
+    	<update id = "qnaUpdate" parameterType="QnaDTO">
+    		update qna set title=#{title}, contents=#{contents} where num=#{num}
+    	</update>
+
+    	<delete id ="qnaDelete" parameterType="Long">
+    		delete qna where num=#{num}
+    	</delete>  
+    
     
     </mapper>

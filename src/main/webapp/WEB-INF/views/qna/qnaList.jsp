@@ -52,7 +52,12 @@
  	<c:forEach items="${lists}" var="dto" varStatus="vs">
 	 	<tr>
 	 		<td>${dto.num}</td>
-	 		<td><a href="./qnaSelect?num=${dto.num}">${dto.title}</a></td>
+	 		<td>
+	 			<a href="./qnaSelect?num=${dto.num}">
+	 			<c:forEach begin="1" end="${dto.depth}">--</c:forEach>
+	 			
+	 			${dto.title}</a>
+	 		</td>
 	 		<td>${dto.writer}</td>
 	 		<td>${dto.regDate}</td>
 	 		<td>${dto.hit}</td>
